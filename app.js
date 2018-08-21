@@ -7,7 +7,8 @@ var imageElOne = document.getElementById('image-one');
 var imageElTwo = document.getElementById('image-two');
 
 var imageElThree = document.getElementById('image-three');
-var responseTable = document.getElementById('response-table');
+
+var responseList = document.getElementById('response-list');
 
 var allProducts = [];
 
@@ -112,34 +113,23 @@ imageElThree.addEventListener('click', function(){
   }
 });
 
-function makeHeaderRow() {
-  var trEl = document.createElement('tr');
-  var thEl = document.createElement('th');
-  
-  thEl.textContent = 'Name';
-  trEl.appendChild(thEl);
-
-  thEl.textContent = 'Times Shown';
-  trEl.appendChild(thEl);
-
-  thEl.textContent = 'Times Selected';
-  trEl.appendChild(thEl);
-
-  thEl.textContent = 'Percentage of Times Selected';
-  trEl.appendChild(thEl);
-
-  responseTable.appendChild(trEl);
+function makeList() {
+  for(var i = 0; i < allProducts.length; i++) {
+    var liEl = document.createElement('li');
+    liEl.textContent = (`${allProducts[i].timesVoted} votes for ${allProducts[i].name}`);
+    responseList.appendChild(liEl);
+    console.log(liEl);
+  }
 }
 
 imageGroup.addEventListener('click', function(event) {
-  if (votes < 2) {
-  // TODO: CHANGE VOTES ABOVE TO 25
+  if (votes < 26) {
+  // TODO: CHANGE VOTES ABOVE TO 26
     showProducts(event);
     votes ++;
   } else {
     document.getElementById('start-layout').classList.add('hidden');
+    makeList();
     document.getElementById('end-layout').classList.remove('hidden');
   }
 });
-
-makeHeaderRow();

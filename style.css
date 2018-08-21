@@ -35,9 +35,17 @@ img {
     border: 10px dashed #D2CBCB;
 }
 
-.hidden{
+.hidden {
     position: absolute;
     left: -9999px;
     top: -9999px;
     visibility: hidden;
+}
+
+ul {
+    list-style-type: disc;
+    font-family: 'Nunito', sans-serif;
+    font-size: 25px;
+    margin: 100px;
+    line-height: 30px;
 }
