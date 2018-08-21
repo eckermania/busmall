@@ -7,6 +7,7 @@ var imageElOne = document.getElementById('image-one');
 var imageElTwo = document.getElementById('image-two');
 
 var imageElThree = document.getElementById('image-three');
+var responseTable = document.getElementById('response-table');
 
 var allProducts = [];
 
@@ -19,6 +20,7 @@ var votes = 0;
 function Product(name) {
   this.name = name;
   this.timesShown = 0;
+  this.timesVoted = 0;
   this.path = `img/${name}.jpg`;
   allProducts.push(this);
 }
@@ -78,17 +80,66 @@ function showProducts() {
 
 showProducts();
 
+imageElOne.addEventListener('click', function() {
+  var productClicked = event.target.title;
 
+  for(var i = 0; i < allProducts.length; i++) {
+
+    if(allProducts[i].name === productClicked){
+      allProducts[i].timesVoted++;
+      console.table(allProducts);
+    }
+  }
+});
+
+imageElTwo.addEventListener('click', function() {
+  var productClicked = event.target.title;
+  for (var i = 0; i < allProducts.length; i++) {
+    if (allProducts[i].name === productClicked) {
+      allProducts[i].timesVoted++;
+      console.table(allProducts);
+    }
+  }
+});
+
+imageElThree.addEventListener('click', function(){
+  var productClicked = event.target.title;
+  for(var i=0; i < allProducts.length; i++) {
+    if (allProducts[i].name === productClicked) {
+      allProducts[i].timesVoted++;
+      console.table(allProducts);
+    }
+  }
+});
+
+function makeHeaderRow() {
+  var trEl = document.createElement('tr');
+  var thEl = document.createElement('th');
+  
+  thEl.textContent = 'Name';
+  trEl.appendChild(thEl);
+
+  thEl.textContent = 'Times Shown';
+  trEl.appendChild(thEl);
+
+  thEl.textContent = 'Times Selected';
+  trEl.appendChild(thEl);
+
+  thEl.textContent = 'Percentage of Times Selected';
+  trEl.appendChild(thEl);
+
+  responseTable.appendChild(trEl);
+}
 
 imageGroup.addEventListener('click', function(event) {
   if (votes < 2) {
   // TODO: CHANGE VOTES ABOVE TO 25
     showProducts(event);
     votes ++;
-
   } else {
-    console.log(document.getElementById('start-layout'));
     document.getElementById('start-layout').classList.add('hidden');
     document.getElementById('end-layout').classList.remove('hidden');
   }
 });
+
+makeHeaderRow();
