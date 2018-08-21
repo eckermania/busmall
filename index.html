@@ -2,14 +2,28 @@
 <html>
 
   <head>
-    <title></title>
+    <title>Purchasing Preferences</title>
     <link href= "reset.css" type="text/css" rel="stylesheet" />
     <link href= "style.css" type="text/css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
   </head>
 
   <body>
-
-
+    <div id = "start-layout">
+    <h1>Purchasing Preferences</h1>
+    <p>Thank you for agreeing to complete this short survey to provide your feedback regarding potential products to be offered by a retailer in the Seattle Metro region.<br/><br/>You will be shown 25 sets of images - in each set, please select the item you would be most likely to purchase. At the end of the survey, you will be able to view a summary of the selections you have made.</p>
+    <div id = "image-container" class = "container">
+        <img id = "image-one" />
+        <img id = "image-two" />
+        <img id = "image-three" />
+    </div>
+   </div>
+   <div id = "end-layout" class = "hidden">
+    <h1>Thank you!</h1>
+    <p>Here is a summary of your votes. <br/> <br/>You can expect to receive payment for your completion of this survey in 3 - 5 business days.</p>
+    <table id = "response-table"></table>
+  </div>
+    <script src="app.js"></script>
   </body>
 </html>
 

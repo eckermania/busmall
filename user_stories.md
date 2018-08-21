@@ -13,8 +13,8 @@ This document contains the user stories for Busmall's focus group site and a rec
 
 
 # H2 Sprint 1 Tasks (8/20/18)
-1. Create a container for all of the images.
-2. Create a way to select three random images and display them at the time the page first loads.
+1. ~Create a container for all of the images.~
+2. ~Create a way to select three random images and display them at the time the page first loads.~
 3. Write CSS so images will be displayed side by side and as a reasonable size.
 4. Add constraints to the selection of images that prevents duplicates within the set of three and between consecutive sets.
 5. Create an event and event listener that will recognize a click and provide a new set of images.
