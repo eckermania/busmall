@@ -16,7 +16,11 @@ var currentProducts = [];
 
 var priorProducts = [];
 
-var votes = 0;
+var votes = [];
+
+var myChart;
+
+var votesCount = 0;
 
 function Product(name) {
   this.name = name;
@@ -88,7 +92,6 @@ imageElOne.addEventListener('click', function() {
 
     if(allProducts[i].name === productClicked){
       allProducts[i].timesVoted++;
-      console.table(allProducts);
     }
   }
 });
@@ -98,7 +101,6 @@ imageElTwo.addEventListener('click', function() {
   for (var i = 0; i < allProducts.length; i++) {
     if (allProducts[i].name === productClicked) {
       allProducts[i].timesVoted++;
-      console.table(allProducts);
     }
   }
 });
@@ -108,7 +110,6 @@ imageElThree.addEventListener('click', function(){
   for(var i=0; i < allProducts.length; i++) {
     if (allProducts[i].name === productClicked) {
       allProducts[i].timesVoted++;
-      console.table(allProducts);
     }
   }
 });
@@ -118,18 +119,49 @@ function makeList() {
     var liEl = document.createElement('li');
     liEl.textContent = (`${allProducts[i].timesVoted} votes for ${allProducts[i].name}`);
     responseList.appendChild(liEl);
-    console.log(liEl);
+    votes.push(allProducts[i].timesVoted);
   }
 }
 
+//Chart
+
+function makeChart() {
+  var ctx = document.getElementById('myChart').getContext('2d');
+  myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: allProductNames,
+      datasets: [{
+        label: '# of Votes',
+        data: votes,
+        backgroundColor: '#5B6B65',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  });
+}
+
+// Event
+
 imageGroup.addEventListener('click', function(event) {
-  if (votes < 26) {
+  if (votesCount < 26) {
   // TODO: CHANGE VOTES ABOVE TO 26
     showProducts(event);
-    votes ++;
+    votesCount ++;
   } else {
     document.getElementById('start-layout').classList.add('hidden');
+    document.getElementById('chart-layout').classList.remove('hidden');
     makeList();
-    document.getElementById('end-layout').classList.remove('hidden');
+    makeChart();
   }
 });
+
