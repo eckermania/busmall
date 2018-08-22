@@ -18,8 +18,6 @@ var priorProducts = [];
 
 var votes = [];
 
-var myChart;
-
 var votesCount = 0;
 
 function Product(name) {
@@ -127,7 +125,7 @@ function makeList() {
 
 function makeChart() {
   var ctx = document.getElementById('myChart').getContext('2d');
-  myChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: 'bar',
     data: {
       labels: allProductNames,
