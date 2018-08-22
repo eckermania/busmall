@@ -1,5 +1,6 @@
 'use strict';
 
+// Variable declarations
 var imageGroup = document.getElementById('image-container');
 
 var imageElOne = document.getElementById('image-one');
@@ -10,6 +11,11 @@ var imageElThree = document.getElementById('image-three');
 
 var responseList = document.getElementById('response-list');
 
+var allProductNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+
+var votesCount = 0;
+
+// Variable declarations for empty arrays
 var allProducts = [];
 
 var currentProducts = [];
@@ -18,22 +24,39 @@ var priorProducts = [];
 
 var votes = [];
 
-var votesCount = 0;
 
-function Product(name) {
+// Constructor function
+function Product(name, timesShown, timesVoted) {
   this.name = name;
-  this.timesShown = 0;
-  this.timesVoted = 0;
+  this.timesShown = timesShown || 0;
   this.path = `img/${name}.jpg`;
+  this.timesVoted = timesVoted || 0;
   allProducts.push(this);
 }
 
-var allProductNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+// Checking local storage for saved data, retrieving array of objects, and resetting vote counter if status is completed.
+function checkLocalStorage () {
+  if (localStorage.getItem('localVotesCount')) {
+    votesCount = localStorage.getItem('localVotesCount');
+  } else {
+    votesCount = 0;
+  }
 
-allProductNames.forEach(function(productName) {
-  new Product(productName);
-});
+  if (localStorage.getItem('allProducts')) {
+    var retrievedProducts = JSON.parse(localStorage.getItem('allProducts'));
+    retrievedProducts.forEach(function(product) {
+      new Product(product.name, product.timesShown, product.timesVoted);
+    });
+  } else {
+    allProductNames.forEach(function(productName) {
+      new Product(productName);
+    });
+  }
+}
 
+checkLocalStorage();
+
+// Function to select and show three random products.
 function showProducts() {
 
   function showRandomProductOne() {
@@ -83,6 +106,7 @@ function showProducts() {
 
 showProducts();
 
+// Event listener that captures votes
 imageElOne.addEventListener('click', function() {
   var productClicked = event.target.title;
 
@@ -112,6 +136,7 @@ imageElThree.addEventListener('click', function(){
   }
 });
 
+// Constructing ul (not currently in use).
 function makeList() {
   for(var i = 0; i < allProducts.length; i++) {
     var liEl = document.createElement('li');
@@ -154,46 +179,16 @@ imageGroup.addEventListener('click', function(event) {
   if (votesCount < 26) {
     showProducts(event);
     votesCount ++;
+    localStorage.setItem('localVotesCount', votesCount);
+    localStorage.setItem('allProducts', JSON.stringify(allProducts));
+    console.log(JSON.stringify(votesCount));
   } else {
     document.getElementById('start-layout').classList.add('hidden');
     document.getElementById('chart-layout').classList.remove('hidden');
+    localStorage.setItem('allProducts', JSON.stringify(allProducts));
     makeList();
     makeChart();
+    votesCount = 0;
+    localStorage.setItem('localVotesCount', votesCount);
   }
 });
-
-
-
-// if(localStorage.getItem(USER_NAME) === null) {
-//   // Vinicio - the name is NOT in local storage, let's ask for the name
-//   var userName = prompt('What is your name');
-//   document.getElementById(USER_NAME).innerText = userName;
-//   localStorage.setItem(USER_NAME,userName);
-// } else {
-//   // Vinicio - the name IS in local storage, let's use the name
-//   var userNameFromLocalStorage = localStorage.getItem(USER_NAME);
-//   document.getElementById(USER_NAME).innerText = userNameFromLocalStorage;
-// }
-
-// var CAT = 'cat';
-// if (localStorage.getItem(CAT) === null) {
-//   alert('Let\'s create a cat');
-//   var catFirstName =  prompt('Enter the cat\'s first name');
-//   var catLastName = prompt('Enter the cat\'s last name');
-//   var catFavoriteFood = prompt('Enter the cat\'s favorite food');
-
-//   var cat = new Cat(catFirstName, catLastName, catFavoriteFood);
-//   // Vinicio - stringify WILL NOT save functions
-//   console.log(JSON.stringify(cat));
-//   localStorage.setItem(CAT, JSON.stringify(cat));
-//   document.getElementById('message').innerText = cat.introduction();
-// } else {
-//   // DATA
-//   var catData = JSON.parse(localStorage.getItem(CAT));
-//   console.log(catData);
-//   // Vinicio - this line is required becacuse of local storage
-//   // BEHAVIOR
-//   var catFromLocalStorage = new Cat(catData.firstName, catData.lastName,
-//   catData.favoriteFood);
-//   document.getElementById('message').innerText = catFromLocalStorage.introduction();
-// }
