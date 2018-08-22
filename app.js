@@ -125,7 +125,7 @@ function makeList() {
 
 function makeChart() {
   var ctx = document.getElementById('myChart').getContext('2d');
-  new Chart(ctx, {
+  new Chart(ctx, { // eslint-disable-line 
     type: 'bar',
     data: {
       labels: allProductNames,
@@ -152,7 +152,6 @@ function makeChart() {
 
 imageGroup.addEventListener('click', function(event) {
   if (votesCount < 26) {
-  // TODO: CHANGE VOTES ABOVE TO 26
     showProducts(event);
     votesCount ++;
   } else {
@@ -163,3 +162,38 @@ imageGroup.addEventListener('click', function(event) {
   }
 });
 
+
+
+// if(localStorage.getItem(USER_NAME) === null) {
+//   // Vinicio - the name is NOT in local storage, let's ask for the name
+//   var userName = prompt('What is your name');
+//   document.getElementById(USER_NAME).innerText = userName;
+//   localStorage.setItem(USER_NAME,userName);
+// } else {
+//   // Vinicio - the name IS in local storage, let's use the name
+//   var userNameFromLocalStorage = localStorage.getItem(USER_NAME);
+//   document.getElementById(USER_NAME).innerText = userNameFromLocalStorage;
+// }
+
+// var CAT = 'cat';
+// if (localStorage.getItem(CAT) === null) {
+//   alert('Let\'s create a cat');
+//   var catFirstName =  prompt('Enter the cat\'s first name');
+//   var catLastName = prompt('Enter the cat\'s last name');
+//   var catFavoriteFood = prompt('Enter the cat\'s favorite food');
+
+//   var cat = new Cat(catFirstName, catLastName, catFavoriteFood);
+//   // Vinicio - stringify WILL NOT save functions
+//   console.log(JSON.stringify(cat));
+//   localStorage.setItem(CAT, JSON.stringify(cat));
+//   document.getElementById('message').innerText = cat.introduction();
+// } else {
+//   // DATA
+//   var catData = JSON.parse(localStorage.getItem(CAT));
+//   console.log(catData);
+//   // Vinicio - this line is required becacuse of local storage
+//   // BEHAVIOR
+//   var catFromLocalStorage = new Cat(catData.firstName, catData.lastName,
+//   catData.favoriteFood);
+//   document.getElementById('message').innerText = catFromLocalStorage.introduction();
+// }
